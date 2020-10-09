@@ -1,0 +1,48 @@
+[  {
+  "Id":1,
+  "Name":"Birla House",
+  "Type":"House",
+  "SellRent":1,
+  "Price":120000,
+  "Image":"prop5.jpg"
+  },
+  {
+    "Id":2,
+    "Name":"Macro House",
+    "Type":"House",
+    "SellRent":2,
+    "Price":120000,
+    "Image":"prop4.jpg"
+  },
+  {
+    "Id":3,
+    "Name":"Charming House",
+    "Type":"House",
+    "SellRent":1,
+    "Price":85600,
+    "Image":"prop3.jpg"
+  },
+  {
+    "Id":4,
+    "Name":"Ghost House",
+    "Type":"House",
+    "SellRent":2,
+    "Price":15600,
+    "Image":"prop2.jpg"
+  },
+  {
+    "Id":5,
+    "Name":"Pearl House",
+    "Type":"House",
+    "SellRent":1,
+    "Price":15000,
+    "Image":"prop1.jpeg"
+  },
+  {
+    "Id":6,
+    "Name":"Rora House",
+    "Type":"House",
+    "SellRent":1,
+    "Price":89654
+  }
+]
