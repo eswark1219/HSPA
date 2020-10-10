@@ -4,6 +4,10 @@ import{HttpClientModule} from'@angular/common/http';
 import { Routes,RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { PropertyCardComponent } from './property/property-card/property-card.component';
@@ -13,6 +17,7 @@ import {HousingService} from './services/housing.service';
 import {UserServiceService} from './services/user-service.service';
 import {AlertifyService} from './services/alertify.service';
 import{AuthService}from './services/auth.service';
+import{PropertyDetailResolverService} from './property/property-detail/property-detail-resolver.service';
 
 import{AddPropertyComponent} from './property/add-property/add-property.component';
 import{PropertyDetailComponent} from './property/property-detail/property-detail.component';
@@ -28,7 +33,7 @@ const appRoutes:Routes=[
 {path:'rent-property',component:PropertyListComponent},
 {path:'list-properties',component:PropertyListComponent},
 {path:'add-property',component:AddPropertyComponent},
-{path:'property-detail/:id',component:PropertyDetailComponent},
+{path:'property-detail/:id',component:PropertyDetailComponent, resolve:{prp:PropertyDetailResolverService} },
 {path:'user/login',component:UserLoginComponent},
 {path:'user/register',component:UserRegisterComponent},
 
@@ -55,13 +60,18 @@ const appRoutes:Routes=[
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ButtonsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    NgxGalleryModule
   ],
   providers: [
     HousingService,
     UserServiceService,
     AlertifyService,
-    AuthService
+    AuthService,
+    PropertyDetailResolverService
   ],
   bootstrap: [AppComponent]
 })

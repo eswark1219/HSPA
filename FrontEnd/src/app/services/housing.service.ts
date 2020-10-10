@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IProperty } from '../property/IProperty.Interface';
+import { Property } from '../model/Property';
 
 
 @Injectable({
@@ -10,23 +11,69 @@ import { IProperty } from '../property/IProperty.Interface';
 })
 export class HousingService {
 
-constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-getAllProperties(SellRent:Number ):Observable<IProperty[]>
-  {
-    return this.http.get('data/properties.json').pipe(
-
-      map(data=>{
-        const propertiesArray:Array<IProperty>=[];
-        for(const id in data)
-        {
-          if(data.hasOwnProperty(id) && data[id].SellRent === SellRent){
-          propertiesArray.push(data[id]);
-          }
-        }
-        return propertiesArray;
+  getProperty(id: number) {
+    return this.getAllProperties().pipe(
+      map(propertiesArray => {
+       //  throw new Error('Some error');
+        return propertiesArray.find(p => p.Id === id);
       })
-    )
+    );
+  }
 
+  getAllProperties(SellRent?: number): Observable<Property[]> {
+    return this.http.get('data/properties.json').pipe(
+      map(data => {
+      const propertiesArray: Array<Property> = [];
+      const localProperties = JSON.parse(localStorage.getItem('newProp'));
+
+      if (localProperties) {
+        for (const id in localProperties) {
+          if (SellRent) {
+          if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent) {
+            propertiesArray.push(localProperties[id]);
+          }
+        } else {
+          propertiesArray.push(localProperties[id]);
+        }
+        }
+      }
+
+      for (const id in data) {
+        if (SellRent) {
+          if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
+            propertiesArray.push(data[id]);
+          }
+          } else {
+            propertiesArray.push(data[id]);
+        }
+      }
+      return propertiesArray;
+      })
+    );
+
+    return this.http.get<Property[]>('data/properties.json');
+  }
+  addProperty(property: Property) {
+    let newProp = [property];
+
+    // Add new property in array if newProp alreay exists in local storage
+    if (localStorage.getItem('newProp')) {
+      newProp = [property,
+                  ...JSON.parse(localStorage.getItem('newProp'))];
+    }
+
+    localStorage.setItem('newProp', JSON.stringify(newProp));
+  }
+
+  newPropID() {
+    if (localStorage.getItem('PID')) {
+      localStorage.setItem('PID', String(+localStorage.getItem('PID') + 1));
+      return +localStorage.getItem('PID');
+    } else {
+      localStorage.setItem('PID', '101');
+      return 101;
+    }
   }
 }
