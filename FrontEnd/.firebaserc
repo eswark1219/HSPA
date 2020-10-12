@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "ang-hspa"
+  },
+  "targets": {
+    "ang-hspa": {
+      "hosting": {
+        "myApp": [
+          "ang-hspa"
+        ]
+      }
+    }
+  }
+}

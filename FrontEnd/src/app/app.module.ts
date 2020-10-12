@@ -24,6 +24,8 @@ import{PropertyDetailComponent} from './property/property-detail/property-detail
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { FilterPipe } from './Pipes/filter.pipe';
+import { SortFilterPipe } from './Pipes/sort.pipe';
 
 
 
@@ -51,7 +53,9 @@ const appRoutes:Routes=[
       AddPropertyComponent,
       PropertyDetailComponent,
       UserLoginComponent,
-      UserRegisterComponent
+      UserRegisterComponent,
+      FilterPipe,
+      SortFilterPipe
    ],
   imports: [
     BrowserModule,

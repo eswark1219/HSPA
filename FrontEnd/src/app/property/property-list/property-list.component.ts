@@ -14,8 +14,14 @@ export class PropertyListComponent implements OnInit {
 
   SellRent=1;
   properties:IPropertyBase[];
+  City='';
+  SearchCity='';
+  SortbyParam='';
+  SortDirection ='asc';
 
   constructor(private route:ActivatedRoute,private housingService :HousingService) { }
+
+
   ngOnInit(): void {
     if (this.route.snapshot.url.toString()) {
       this.SellRent = 2; // Means we are on rent-property URL else we are on base URL
@@ -30,4 +36,21 @@ export class PropertyListComponent implements OnInit {
       }
     );
   }
+
+  onCityFilter(){
+    this.SearchCity = this.City;
+  }
+  onCityFilterClear(){
+    this.City='';
+    this.SearchCity='';
+  }
+
+  onSortDirection(){
+    if(this.SortDirection==='desc'){
+      this.SortDirection='asc';
+    }else{
+      this.SortDirection='desc';
+    }
+  }
+
 }
